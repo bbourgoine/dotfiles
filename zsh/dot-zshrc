@@ -12,6 +12,11 @@ if [[ "$OSTYPE" == darwin* ]]; then
   ls -G . &>/dev/null && alias ls='ls -G'
 fi
 
+# Set TERM to 'xterm-256color' if using ghostty
+if [[ "$TERM_PROGRAM" == "ghostty" ]]; then
+    export TERM=xterm-256color
+fi
+
 if [[ `whoami` = "root" ]]; then
   CONFDIR=$ZDOTDIR
 else
