@@ -1,0 +1,35 @@
+;; Disable the splash screen (to enable it agin, replace the t with 0)
+(setq inhibit-splash-screen t)
+
+(setq vc-follow-symlinks t)
+
+(when (version<= "26.0.50" emacs-version )
+  (global-display-line-numbers-mode)
+  (global-hl-line-mode)
+)
+(unless (display-graphic-p)
+  (menu-bar-mode -1)
+  (load-theme 'tsdh-dark)
+  (custom-set-faces '(default ((t (:background "undefined")))))  
+)
+(global-font-lock-mode 1)
+
+;;;;Org mode configuration
+;; Enable Org mode
+(require 'org)
+(global-set-key "\C-cl" 'org-store-link)
+(global-set-key "\C-ca" 'org-agenda)
+(global-set-key "\C-cc" 'org-capture)
+(global-set-key "\C-cb" 'org-iswitchb)
+(setq org-log-done t)
+;; Make Org mode work with files ending in .org
+(add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
+;; The above is the default in recent emacsen
+
+;; Set lisp-mode for .emacs since for some reason elisp-mode isn't there
+(add-to-list 'auto-mode-alist '("^\\.emacs$" . lisp-mode))
+(add-to-list 'auto-mode-alist '("emacs" . lisp-mode))
+
+;;(add-to-list 'load-path "~/.emacs.d/emacs-libvterm")
+;;(require 'vterm)
+

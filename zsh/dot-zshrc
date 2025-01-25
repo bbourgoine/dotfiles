@@ -1,0 +1,126 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+# User configuration
+
+# Default to color LS if available on OSX
+if [[ "$OSTYPE" == darwin* ]]; then
+  ls -G . &>/dev/null && alias ls='ls -G'
+fi
+
+if [[ `whoami` = "root" ]]; then
+  CONFDIR=$ZDOTDIR
+else
+  CONFDIR=$HOME
+fi
+
+# Save command history
+HISTFILE=${ZDOTDIR:-$HOME}/.zsh_history
+HISTSIZE=2000
+SAVEHIST=1000
+
+#if [[ -f $CONFDIR/.zsh.d/yukeake.zsh-theme ]]; then
+#  source $CONFDIR/.zsh.d/yukeake.zsh-theme
+#fi
+
+# Powerlevel10k
+if [[ -f /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme ]]; then # MacOS
+  source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
+elif [[ -f /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme ]]; then # Linux (Arch, may be different for others)
+  source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
+fi
+
+# Syntax highlighting
+if [[ -f $CONFDIR/.zsh.d/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
+  source $CONFDIR/.zsh.d/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
+
+# Autocomplete
+if [[ -f /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
+  source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+fi
+
+# fzf integration
+if [[ -f $CONFDIR/.zsh.d/fzf.zsh ]]; then
+  source $CONFDIR/.zsh.d/fzf.zsh
+fi
+
+# MacOS - Add homebrew to $PATH
+if [ -d /opt/homebrew/bin ]; then
+   PATH=/opt/homebrew/bin:${PATH}
+fi
+
+if [ -d /opt/homebrew/sbin ]; then
+   PATH=/opt/homebrew/sbin:${PATH}
+fi
+
+# Add emacs/bin to $PATH
+if [ -d $HOME/.config/emacs/bin ]; then
+   PATH=$HOME/.config/emacs/bin:${PATH}
+fi
+
+# export MANPATH="/usr/local/man:$MANPATH"
+
+# You may need to manually set your language environment
+# export LANG=en_US.UTF-8
+
+# Preferred editor for local and remote sessions
+# if [[ -n $SSH_CONNECTION ]]; then
+#   export EDITOR='vim'
+# else
+#   export EDITOR='mvim'
+# fi
+
+# Compilation flags
+# export ARCHFLAGS="-arch x86_64"
+
+# Set personal aliases, overriding those provided by oh-my-zsh libs,
+# plugins, and themes. Aliases can be placed here, though oh-my-zsh
+# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# For a full list of active aliases, run `alias`.
+#
+# Example aliases
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
+
+alias cv="curl -s 'https://corona-stats.online/?top=5&minimal=true' | head -n 7"
+alias ww="curl -ks 'wttr.in/?2nq'"
+
+alias go2autoscale="cd /Users/brent/Projects/Grid1/GridDeployment/CNext.internal/resources/deployment/Cloud/Grid/default/data/OperationsAgent/scripts/Grid"
+
+alias gl="git log --oneline"
+alias gl5="git log --oneline -5"
+alias gl10="git log --oneline -10"
+
+# exa - deprecated and replaced by eza
+#if [[ -x /usr/local/bin/exa || -x /usr/bin/exa || -x /opt/homebrew/bin/exa ]]; then
+#  export EXA_ICON_SPACING=2
+#  alias ls="exa --icons --git -g --group-directories-first"
+#fi
+
+# eza
+if [[ -x /usr/local/bin/eza || -x /usr/bin/eza || -x /opt/homebrew/bin/eza ]]; then
+  export EZA_ICON_SPACING=2
+  alias ls="eza --icons --git -g --group-directories-first"
+fi
+
+# Python 3.10
+#alias python=/opt/homebrew/bin/python3.10
+#alias python3=/opt/homebrew/bin/python3.10
+
+# Disable Homebrew analytics
+export HOMEBREW_NO_ANALYTICS=1
+
+# zoxide integration
+eval "$(zoxide init --cmd=cd zsh)"
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# GNU Stow
+export STOW_DIR=$HOME/dotfiles
+

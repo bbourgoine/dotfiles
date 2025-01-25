@@ -1,0 +1,28 @@
+"General settings and toggles"
+syntax       on
+colorscheme  default
+set bg=dark
+set autoindent
+hi CursorLine   term=none cterm=none ctermbg=DarkGrey  
+hi CursorLineNr term=none cterm=none ctermbg=DarkGrey
+set tabstop=3
+set shiftwidth=3
+set expandtab
+set cursorline
+
+"Filetype specific settings"
+filetype plugin indent on
+autocmd FileType yaml,yml setlocal ts=2 sts=2 sw=2 expandtab
+
+"Line numbers" 
+set number relativenumber
+augroup numbertoggle
+  autocmd!
+  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+augroup END
+nmap <C-N><C-N> :set nonumber! norelativenumber! number?<CR>
+nmap <C-N><C-A> :set number norelativenumber number?<CR>
+nmap <C-N><C-R> :set nonumber relativenumber number?<CR>
+nmap <C-N><C-H> :set number relativenumber number?<CR>
+
